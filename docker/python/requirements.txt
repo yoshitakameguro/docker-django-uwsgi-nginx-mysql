@@ -1,0 +1,5 @@
+django
+uwsgi
+mysqlclient
+django-debug-toolbar
+pillow

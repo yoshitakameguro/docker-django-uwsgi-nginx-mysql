@@ -1,0 +1,44 @@
+version: '2'
+services:
+  web:
+    container_name: web
+    build: ./docker/nginx
+    ports:
+      - 8888:80
+    volumes:
+      - ./app:/var/www/html
+    working_dir: /etc/nginx
+    links:
+      - python
+  python:
+    container_name: python
+    build: ./docker/python
+    volumes:
+      - ./app:/var/www/html
+    working_dir: /var/www/html
+    links:
+      - mysql
+  mysql:
+    build: docker/mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=django
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=password
+    links:
+      - mysql
+    ports:
+      - 8889:80
+    volumes:
+      - /sessions
