@@ -26,27 +26,27 @@ $ docker-compose up -d
 
 
 ### Commands
-enter the python container
-```
-$ docker exec -it python bash
-```
-
 create a django app
 ```
-$ python manage.py startapp <app_name>
+$ docker exec -it python ./manage.py startapp <app_name>
+```
+
+create models from existing database
+```
+$ docker exec -it python ./manage.py inspectdb
 ```
 
 execute migration
 ```
-$ python manage.py migrate
+$ docker exec -it python ./manage.py migrate
 ```
 
 create a migration file
 ```
-$ python manage.py makemigrations
+$ docker exec -it python ./manage.py makemigrations
 ```
 
 create an admin account
 ```
-$ python manage.py createsuperuser
+$ docker exec -it python ./manage.py createsuperuser
 ```
