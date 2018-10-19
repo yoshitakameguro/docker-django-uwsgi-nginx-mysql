@@ -28,7 +28,7 @@ services:
       - data-volume:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=board
+      - MYSQL_DATABASE=django
     healthcheck:
       test: "exit 0"
 
