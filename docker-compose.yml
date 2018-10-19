@@ -1,4 +1,4 @@
-version: '2'
+version: '2.4'
 services:
   web:
     container_name: web
@@ -16,29 +16,21 @@ services:
     volumes:
       - ./app:/var/www/html
     working_dir: /var/www/html
-    links:
-      - mysql
+    depends_on:
+      mysql:
+        condition: service_healthy
   mysql:
     build: docker/mysql
     container_name: mysql
     ports:
       - 3306:3306
     volumes:
-      - ./docker/mysql/data:/var/lib/mysql
+      - data-volume:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=django
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=mysql
-      - PMA_USER=root
-      - PMA_PASSWORD=password
-    links:
-      - mysql
-    ports:
-      - 8889:80
-    volumes:
-      - /sessions
+      - MYSQL_DATABASE=board
+    healthcheck:
+      test: "exit 0"
+
+volumes:
+  data-volume:
