@@ -15,8 +15,6 @@ COPY requirements.txt /requirements.txt
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt \
     && rm /usr/bin/mysql*
-
 COPY uwsgi.ini /uwsgi.ini
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["uwsgi", "--ini", "/uwsgi.ini"]
