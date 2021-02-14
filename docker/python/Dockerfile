@@ -1,20 +1,13 @@
-FROM python:3.7-alpine
+FROM python:3.8-alpine
 
-RUN apk update \
-    && apk add --no-cache --virtual bash \
-    && apk add gcc \
-    && apk add musl-dev \
-    && apk add linux-headers \
-    && apk add jpeg-dev \
-    && apk add zlib-dev \
-    && apk add mariadb-dev \
-    && apk add libffi-dev
+RUN apk update && apk add --no-cache --virtual bash gcc musl-dev linux-headers jpeg-dev zlib-dev mariadb-dev libffi-dev
 
 # install pypi packages
 COPY requirements.txt /requirements.txt
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt \
-    && rm /usr/bin/mysql*
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+RUN rm /usr/bin/mysql*
 COPY uwsgi.ini /uwsgi.ini
+RUN pip freeze > newreqs.txt
 
 CMD ["uwsgi", "--ini", "/uwsgi.ini"]
