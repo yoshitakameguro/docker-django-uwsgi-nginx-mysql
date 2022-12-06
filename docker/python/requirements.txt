@@ -6,7 +6,7 @@ django-debug-toolbar==3.2.1
 django-redis==4.12.1
 djangorestframework==3.12.2
 mysqlclient==2.0.3
-Pillow==9.0.1
+Pillow==9.3.0
 pycparser==2.20
 pytz==2020.5
 redis==3.5.3
