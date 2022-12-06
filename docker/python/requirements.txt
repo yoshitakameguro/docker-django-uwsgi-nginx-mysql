@@ -3,7 +3,6 @@ bcrypt==3.2.0
 cffi==1.14.4
 Django==3.1.14
 django-debug-toolbar==3.2.1
-django-debug-toolbar==3.2
 django-redis==4.12.1
 djangorestframework==3.12.2
 mysqlclient==2.0.3
